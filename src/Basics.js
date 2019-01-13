@@ -1,52 +1,20 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  }
-})
-
-const Basics = ({classes, handleChange, name, email}) => {
+const Basics = ({handleChange, name, email, psummary}) => {
   return (
     <div>
-      <Typography variant="h6" color="inherit">
-        Basic Information
-      </Typography>
-      <TextField
-        id="standard-name"
-        label="Name"
-        className={classes.textField}
-        value={name}
-        onChange={handleChange('name')}
-        margin="normal"
-      />
-      <TextField
-        id="standard-name"
-        label="Email"
-        className={classes.textField}
-        value={email}
-        onChange={handleChange('email')}
-        margin="normal"
-      />
-      <TextField
-        id="standard-full-width"
-        label="Professional Summary"
-        style={{ margin: 8 }}
-        placeholder="Enter Professional Summary"
-        fullWidth
-        margin="normal"
-        InputLabelProps={{
-          shrink: true,
-        }}
-        onChange={handleChange('summary')}
-        />
-    </div>
+      <h2>Basic Information</h2>
+      <label>Name</label>
+      <input type='text' name='name' value={name} placeholder='Name' onChange={handleChange('name')}/>
+      
+      <label>Email</label>
+      <input type='text' name='email' value={email} placeholder='Email' onChange={handleChange('email')}/>
+
+      <label>Professional Summary</label>
+      <textarea name='psummary' value={psummary} placeholder='Professional Summary' onChange={handleChange('psummary')}/>
+
+    </div> 
   )
 }
 
-export default withStyles(styles)(Basics);
+export default Basics;

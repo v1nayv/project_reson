@@ -1,48 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 import Basics from './Basics';
+import Education from './Education';
 
-const styles = theme => ({
-  root: {
-    flexGrow: 1,
-  }
-});
+class App extends React.Component {
+  state = {name: '', email: '', psummary: '', university: ''}
 
-class SimpleAppBar extends React.Component {
-  state = { name: '' };
-  
   handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-
+    this.setState({[name]: event.target.value})
     console.log(this.state)
-  };
+  }
 
   render() {
-    const { classes } = this.props;
-
     return (
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Typography variant="h6" color="inherit">
-              Project RESON - Build your JSON resume based on https://jsonresume.org/
-            </Typography>
-          </Toolbar>        
-        </AppBar>
-        <Basics {...this.state} handleChange={this.handleChange} />
-      </div>
-    );
+      <Router>
+        <div className="App">
+          <div className="container">
+            <ul>
+              <li><Link to="/basics">Basics</Link></li>
+              <li><Link to="/education">Education</Link></li>
+              <li><a href="">Work Experience</a></li>
+            </ul>
+            <hr/>
+            <Route path="/basics" render={() => <Basics 
+                                                  name={this.state.name} 
+                                                  email={this.state.email} 
+                                                  psummary={this.state.psummary}
+                                                  handleChange={this.handleChange} 
+                                                />}
+            />
+            <Route path="/education" render={() => <Education 
+                                                  university={this.state.university}                                                   
+                                                  handleChange={this.handleChange} 
+                                                />}
+            />
+          </div>
+        </div>
+      </Router>
+    )
   }
 }
 
-SimpleAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(SimpleAppBar);
+export default App;
